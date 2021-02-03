@@ -1,19 +1,17 @@
-package de.th3ph4nt0m.kotlinbot.core
+package core
 
 
-import de.th3ph4nt0m.kotlinbot.constants.BOT.ACTIVITY
-import de.th3ph4nt0m.kotlinbot.constants.BOT.GATEWAY_INTENTS
-import de.th3ph4nt0m.kotlinbot.constants.BOT.STATUS
+import commands.handling.CommandHandler
+import constants.BOT.ACTIVITY
+import constants.BOT.GATEWAY_INTENTS
+import constants.BOT.STATUS
 
 import io.github.cdimascio.dotenv.Dotenv
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.requests.GatewayIntent
 
-internal class BotImpl(
-    token: String,
-    env: Dotenv
-) : Bot {
+internal class BotImpl(token: String) : Bot {
 
     override val jda: JDA = JDABuilder.create(
         token,
@@ -22,5 +20,7 @@ internal class BotImpl(
         .setActivity(ACTIVITY)
         .setStatus(STATUS)
         .build()
+
+    override val commandHandler = CommandHandler(this)
 
 }

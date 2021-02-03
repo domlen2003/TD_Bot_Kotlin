@@ -1,13 +1,9 @@
-package de.th3ph4nt0m.kotlinbot
-
 import io.github.cdimascio.dotenv.dotenv
 import kotlin.system.exitProcess
-import de.th3ph4nt0m.kotlinbot.core.BotImpl as Bot
+import core.BotImpl as Bot
 
 fun main(args: Array<String>) {
+    val token = dotenv()["TOKEN"] ?: exitProcess(1)
 
-    val env = dotenv()
-    val token = env["TOKEN"] ?: exitProcess(1)
-
-    Bot(token, env)
+    Bot(token)
 }

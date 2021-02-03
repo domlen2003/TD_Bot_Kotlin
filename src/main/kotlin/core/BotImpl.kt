@@ -1,6 +1,5 @@
 package core
 
-
 import commands.handling.CommandHandler
 import constants.BOT.ACTIVITY
 import constants.BOT.GATEWAY_INTENTS

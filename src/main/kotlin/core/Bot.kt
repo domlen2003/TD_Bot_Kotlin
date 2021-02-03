@@ -1,6 +1,5 @@
 package core
 
-
 import commands.handling.CommandHandler
 import net.dv8tion.jda.api.JDA
 

@@ -1,17 +1,20 @@
 package commands.handling
 
+import commands.cmds.HelpCommand
 import commands.cmds.TestCommand
 import constants.BOT.PREFIX
 import core.Bot
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import java.util.*
+import java.util.function.Predicate
 
 class CommandHandler (bot: Bot){
 
     private val commands: LinkedList<ICommand> = LinkedList<ICommand>()
 
     init {
-       addCommand(TestCommand())
+        addCommand(TestCommand(bot))
+        addCommand(HelpCommand(bot))
     }
 
     fun handle(event: MessageReceivedEvent) {
@@ -25,10 +28,16 @@ class CommandHandler (bot: Bot){
 
     private fun handleCommand(cmd: CommandContainer) {
         for (command in commands) {
-            if (command.info.invokes.contains(cmd.invoke)) {
+            if(command.info.invokes.stream().anyMatch{it.toString().equals(cmd.invoke, ignoreCase = true)}) {
                 if (command.secure(cmd.args, cmd.event)) command.action(cmd.args, cmd.event)
             }
         }
+    }
+
+    fun listCommandinfos(): LinkedList<CommandInfo> {
+        val list = LinkedList<CommandInfo>()
+        commands.forEach { command ->list.add(command.info)  }
+        return list
     }
 
     private data class CommandContainer(
@@ -52,4 +61,3 @@ class CommandHandler (bot: Bot){
         return CommandContainer(raw, beheaded, splitBeheaded, invoke, args, event)
     }
 }
-

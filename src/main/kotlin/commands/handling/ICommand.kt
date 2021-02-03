@@ -7,7 +7,7 @@ interface ICommand {
     val info: CommandInfo
 
     fun secure(args: Array<String?>, event: MessageReceivedEvent): Boolean {
-        return DiscordRank.findRank(event.member!!.roles[0].idLong)!!.isAtLeast(info.accessRank)
+        return  DiscordRank.findRank(event.member!!.roles[0].idLong).isAtLeast(info.accessRank)
     }
 
     fun action(args: Array<String?>, event: MessageReceivedEvent?)

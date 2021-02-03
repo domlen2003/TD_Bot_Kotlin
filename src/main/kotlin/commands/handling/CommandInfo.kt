@@ -1,8 +1,6 @@
 package commands.handling
 
 import security.DiscordRank
-import java.util.*
-
 
 data class CommandInfo(
         val name: String,

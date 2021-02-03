@@ -5,6 +5,7 @@ import commands.handling.CommandHandler
 import constants.BOT.ACTIVITY
 import constants.BOT.GATEWAY_INTENTS
 import constants.BOT.STATUS
+import event.CommandListener
 
 import io.github.cdimascio.dotenv.Dotenv
 import net.dv8tion.jda.api.JDA
@@ -17,6 +18,7 @@ internal class BotImpl(token: String) : Bot {
         token,
         GatewayIntent.getIntents(GATEWAY_INTENTS)
     )
+        .addEventListeners(CommandListener(this))
         .setActivity(ACTIVITY)
         .setStatus(STATUS)
         .build()

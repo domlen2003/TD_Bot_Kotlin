@@ -7,7 +7,8 @@ interface ICommand {
     val info: CommandInfo
 
     fun secure(args: List<String?>, event: MessageReceivedEvent): Boolean {
-        return  DiscordRank.findRank(event.member!!.roles[0].idLong).isAtLeast(info.accessRank)
+        if(info.args.size>args.size){println("missing args")}//TODO: add action for missing args
+        return  DiscordRank.findRank(event.member!!.roles[0].idLong)!!.isAtLeast(info.accessRank)
     }
 
     fun action(args: List<String?>, event: MessageReceivedEvent?)

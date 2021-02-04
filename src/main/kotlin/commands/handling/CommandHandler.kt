@@ -2,6 +2,7 @@ package commands.handling
 
 import commands.cmds.HelpCommand
 import commands.cmds.TestCommand
+import commands.cmds.UserinfoCommand
 import constants.BOT.PREFIX
 import core.Bot
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
@@ -14,6 +15,7 @@ class CommandHandler (bot: Bot){
     init {
         addCommand(TestCommand(bot))
         addCommand(HelpCommand(bot))
+        addCommand(UserinfoCommand())
     }
 
     fun handle(event: MessageReceivedEvent) {
@@ -50,11 +52,9 @@ class CommandHandler (bot: Bot){
 
     private fun parse(raw: String, event: MessageReceivedEvent): CommandContainer {
         val beheaded = raw.replaceFirst(PREFIX.toRegex(), "")
-        val splitBeheaded = LinkedList(beheaded.split(" ").toList())
-        splitBeheaded.removeIf{ it==" " || it==""}
+        val splitBeheaded = LinkedList(beheaded.split(" ").toList().dropWhile {  it==" " || it==""})
         val invoke = splitBeheaded[0]
         val args = LinkedList(splitBeheaded.toList().subList(1,splitBeheaded.size))
-        println(CommandContainer(raw, beheaded, splitBeheaded.toList(), invoke, args, event))
 
         return CommandContainer(raw, beheaded, splitBeheaded.toList(), invoke, args, event)
     }

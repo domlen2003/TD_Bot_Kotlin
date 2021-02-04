@@ -67,7 +67,6 @@ class IMessage(bot: Bot?, private val title: String, private val subTitle: Strin
     }
 
     fun build(): MessageEmbed {
-        println(authorUrl)
         val builder = EmbedBuilder()
         builder.setTitle(subTitle, titleUrl)
             .setColor(color)

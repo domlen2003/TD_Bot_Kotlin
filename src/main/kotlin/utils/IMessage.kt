@@ -18,14 +18,13 @@ class IMessage(private val title: String, private val subTitle: String) {
     private var authorUrl: String? = null
     private var authorIconUrl: String? = null
 
-
-    fun setTitleUrl(url: String?): IMessage {
-        titleUrl = url
+    fun addLine(text: String): IMessage {
+        body = "$body\n$text\n"
         return this
     }
 
-    fun addLine(text: String): IMessage {
-        body = "$body\n$text\n"
+    fun blankLine(): IMessage {
+        body = "$body\n"
         return this
     }
 
@@ -37,26 +36,22 @@ class IMessage(private val title: String, private val subTitle: String) {
         return this
     }
 
-    fun blankLine(): IMessage {
-        body = "$body\n"
+    fun setIcon(url: String?): IMessage {
+        this.iconUrl = url
         return this
     }
 
-    fun addEmbedField(name: String?, value: String?, inline: Boolean): IMessage {
-        val f = MessageEmbed.Field(name, value, inline)
-        fields.add(f)
+    fun setTitleUrl(url: String?): IMessage {
+        titleUrl = url
         return this
     }
+
 
     fun setColor(color: Color): IMessage {
         this.color = color
         return this
     }
 
-    fun setIcon(url: String?): IMessage {
-        this.iconUrl = url
-        return this
-    }
 
     fun setAuthorUrl(url: String?): IMessage {
         this.authorUrl = url

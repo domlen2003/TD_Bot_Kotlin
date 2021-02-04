@@ -1,5 +1,6 @@
 package commands.cmds
 
+import commands.handling.Argument
 import commands.handling.CommandInfo
 import commands.handling.ICommand
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
@@ -10,7 +11,9 @@ class UserinfoCommand : ICommand {
     override val info = CommandInfo(
         name = "Userinfo",
         invokes = listOf("Info", "Userinfo"),
-        args = listOf("mentioned Members"),
+        args = listOf(
+            Argument(type = "MemberMentions", example = "@exampleMember"),
+        ),
         description = "Shows the commands you can use"
     )
     override fun action(args: List<String?>, event: MessageReceivedEvent?) {

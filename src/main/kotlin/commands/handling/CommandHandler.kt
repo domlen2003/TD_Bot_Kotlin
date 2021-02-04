@@ -8,7 +8,7 @@ import core.Bot
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import java.util.*
 
-class CommandHandler (bot: Bot){
+class CommandHandler (private val bot: Bot){
 
     private val commands: LinkedList<ICommand> = LinkedList<ICommand>()
 

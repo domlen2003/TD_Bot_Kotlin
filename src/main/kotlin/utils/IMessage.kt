@@ -11,7 +11,7 @@ import java.util.*
 class IMessage(bot: Bot?, private val title: String, private val subTitle: String) {
 
     private val fields: MutableList<MessageEmbed.Field> = ArrayList()
-    private var body: String? = null
+    private var body: String = "\u200C"
     private var color = MESSAGE_BUILDER_DEFAULT_COLOR
     private var iconUrl: String? = MESSAGE_BUILDER_DEFAULT_ICON
     private var titleUrl: String? = null
@@ -27,22 +27,26 @@ class IMessage(bot: Bot?, private val title: String, private val subTitle: Strin
     }
 
     fun addLine(text: String): IMessage {
-        body =
-            if (body != null) """$body$text""".trimIndent()
-            else text
+        body = "$body\n$text\n"
         return this
     }
 
     fun addField(name: String?, value: String?, inline: Boolean): IMessage {
-        val f = MessageEmbed.Field(name, value, inline)
-        fields.add(f)
+        if(inline)
+            body = "${body}\n**${name}: **${value}\n"
+        else
+            body ="${body}\n**${name}: **\n${value}\n"
         return this
     }
 
     fun blankLine(): IMessage {
-        body =
-            if (body != null) """$body""".trimIndent()
-            else "\n"
+        body = "$body\n"
+        return this
+    }
+
+    fun addEmbedField(name: String?, value: String?, inline: Boolean): IMessage {
+        val f = MessageEmbed.Field(name, value, inline)
+        fields.add(f)
         return this
     }
 

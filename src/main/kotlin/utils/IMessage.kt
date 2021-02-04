@@ -21,20 +21,20 @@ class IMessage(bot: Bot?, private val title: String, private val subTitle: Strin
     private var authorIconUrl: String? = bot?.jda?.guilds?.get(0)?.iconUrl
 
 
-    fun setTitleUrl(pUrl: String?): IMessage {
-        titleUrl = pUrl
+    fun setTitleUrl(url: String?): IMessage {
+        titleUrl = url
         return this
     }
 
-    fun addLine(pText: String): IMessage {
+    fun addLine(text: String): IMessage {
         body =
-            if (body != null) """$body$pText""".trimIndent()
-            else pText
+            if (body != null) """$body$text""".trimIndent()
+            else text
         return this
     }
 
-    fun addField(pName: String?, pValue: String?, pInline: Boolean): IMessage {
-        val f = MessageEmbed.Field(pName, pValue, pInline)
+    fun addField(name: String?, value: String?, inline: Boolean): IMessage {
+        val f = MessageEmbed.Field(name, value, inline)
         fields.add(f)
         return this
     }
@@ -46,23 +46,23 @@ class IMessage(bot: Bot?, private val title: String, private val subTitle: Strin
         return this
     }
 
-    fun setColor(pColor: Color): IMessage {
-        color = pColor
+    fun setColor(color: Color): IMessage {
+        this.color = color
         return this
     }
 
-    fun setIcon(pIconUrl: String?): IMessage {
-        iconUrl = pIconUrl
+    fun setIcon(url: String?): IMessage {
+        this.iconUrl = url
         return this
     }
 
-    fun setAuthorUrl(pAuthorUrl: String?): IMessage {
-        authorUrl = pAuthorUrl
+    fun setAuthorUrl(url: String?): IMessage {
+        this.authorUrl = url
         return this
     }
 
-    fun setAuthorIconUrl(pAuthorIconUrl: String?): IMessage {
-        authorIconUrl = pAuthorIconUrl
+    fun setAuthorIconUrl(url: String?): IMessage {
+        this.authorIconUrl = url
         return this
     }
 

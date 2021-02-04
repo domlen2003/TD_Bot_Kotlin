@@ -16,6 +16,7 @@ class HelpCommand(private val bot: Bot) : ICommand {
         description = "Shows the commands you can use"
     )
 
+
     override fun action(args: List<String?>, event: MessageReceivedEvent?) {
         val accessibleCommands: LinkedList<CommandInfo> = bot.commandHandler.listCommandinfos()
         accessibleCommands.removeIf { commandInfo1: CommandInfo ->

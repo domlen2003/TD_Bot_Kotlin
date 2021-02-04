@@ -17,7 +17,7 @@ class UserinfoCommand : ICommand {
         val message = IMessage(null,"Userinfo","Stored Info in DB")
         for(m in event!!.message.mentionedMembers){
             val nationMember = NationMember(m)
-            message.addField(pName = m.effectiveName, pValue = "no DB connected", pInline = false)
+            message.addField(name = m.effectiveName, value = "no DB connected", inline = false)
 
             // TODO: send info about user instead of "No Database" as soon as db is
         }

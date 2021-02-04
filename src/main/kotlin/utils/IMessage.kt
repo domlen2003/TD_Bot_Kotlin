@@ -8,15 +8,17 @@ import net.dv8tion.jda.api.entities.MessageEmbed
 import java.awt.Color
 import java.util.*
 
-class IMessage(private val bot: Bot, private val title: String, private val subTitle: String) {
+class IMessage(bot: Bot?, private val title: String, private val subTitle: String) {
 
     private val fields: MutableList<MessageEmbed.Field> = ArrayList()
     private var body: String? = null
     private var color = MESSAGE_BUILDER_DEFAULT_COLOR
     private var iconUrl: String? = MESSAGE_BUILDER_DEFAULT_ICON
     private var titleUrl: String? = null
-    private var authorUrl: String? = null
-    private var authorIconUrl: String? = bot.jda.guilds[0].iconUrl
+    private var authorUrl: String? =
+        bot?.jda?.guilds?.getOrNull(0)?.retrieveInvites()?.complete()?.getOrNull(0)?.url ?:
+        bot?.jda?.guilds?.getOrNull(0)?.channels?.getOrNull(1)?.createInvite()?.complete()?.url
+    private var authorIconUrl: String? = bot?.jda?.guilds?.get(0)?.iconUrl
 
 
     fun setTitleUrl(pUrl: String?): IMessage {
@@ -65,6 +67,7 @@ class IMessage(private val bot: Bot, private val title: String, private val subT
     }
 
     fun build(): MessageEmbed {
+        println(authorUrl)
         val builder = EmbedBuilder()
         builder.setTitle(subTitle, titleUrl)
             .setColor(color)

@@ -6,7 +6,6 @@ import constants.BOT.PREFIX
 import core.Bot
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import java.util.*
-import java.util.function.Predicate
 
 class CommandHandler (bot: Bot){
 
@@ -43,21 +42,21 @@ class CommandHandler (bot: Bot){
     private data class CommandContainer(
             val raw: String,
             val beheaded: String,
-            val splitBeheaded: Array<String>,
+            val splitBeheaded: List<String>,
             val invoke: String,
-            val args: Array<String?>,
+            val args: List<String?>,
             val event: MessageReceivedEvent
     )
 
     private fun parse(raw: String, event: MessageReceivedEvent): CommandContainer {
         val beheaded = raw.replaceFirst(PREFIX.toRegex(), "")
-        val splitBeheaded = beheaded.split(" ").toTypedArray()
+        val splitBeheaded = LinkedList(beheaded.split(" ").toList())
+        splitBeheaded.removeIf{ it==" " || it==""}
         val invoke = splitBeheaded[0]
-        val split = ArrayList<String>()
-        for (s in splitBeheaded) split.add(s)
-        val args = arrayOfNulls<String>(split.size - 1)
-        System.arraycopy(split.toArray(), 1, args, 0, args.size)
+        val args = LinkedList(splitBeheaded.toList().subList(1,splitBeheaded.size))
+        println(CommandContainer(raw, beheaded, splitBeheaded.toList(), invoke, args, event))
 
-        return CommandContainer(raw, beheaded, splitBeheaded, invoke, args, event)
+        return CommandContainer(raw, beheaded, splitBeheaded.toList(), invoke, args, event)
     }
+
 }

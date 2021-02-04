@@ -17,7 +17,7 @@ class UserinfoCommand : ICommand {
         description = "Shows the commands you can use"
     )
     override fun action(args: List<String?>, event: MessageReceivedEvent?) {
-        val message = IMessage(null,"Userinfo","Stored Info in DB")
+        val message = IMessage(title = "Userinfo", subTitle = "Stored Info in DB")
         for(m in event!!.message.mentionedMembers){
             val nationMember = NationMember(m)
             message.addField(name = m.effectiveName, value = "no DB connected", inline = false)

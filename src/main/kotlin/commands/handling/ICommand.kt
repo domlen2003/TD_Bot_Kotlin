@@ -17,7 +17,7 @@ interface ICommand {
     fun action(args: List<String?>, event: MessageReceivedEvent?)
 
     fun argsMissingBreak(args: List<String?>, channel: TextChannel): Boolean {
-        val msg =  IMessage(bot = null, title = "", subTitle = "Arguments Missing").setColor(MESSAGE_BUILDER_ERROR_COLOR)
+        val msg =  IMessage(title = "", subTitle = "Arguments Missing").setColor(MESSAGE_BUILDER_ERROR_COLOR)
             .addLine("__**Expected: **__")
         for(arg in info.args) msg.addField(name = arg.type, value ="`${arg.example}`", inline = true)
 

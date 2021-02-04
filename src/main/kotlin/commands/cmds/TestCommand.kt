@@ -14,7 +14,7 @@ class TestCommand(private val bot: Bot) : ICommand {
         description = "a test command")
 
     override fun action(args: List<String?>, event: MessageReceivedEvent?) {
-        event!!.channel.sendMessage(IMessage(bot = null, title = "Test", subTitle = "Reply to test command").build()).queue()
+        event!!.channel.sendMessage(IMessage(title = "Test", subTitle = "Reply to test command").build()).queue()
     }
 
 }

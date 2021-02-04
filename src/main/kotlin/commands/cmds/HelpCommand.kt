@@ -22,7 +22,8 @@ class HelpCommand(private val bot: Bot) : ICommand {
         accessibleCommands.removeIf { commandInfo1: CommandInfo ->
             !DiscordRank.findRank(event!!.member!!.roles[0].idLong)!!.isAtLeast(commandInfo1.accessRank)
         }
-        val reply = IMessage(bot = bot, title = "Help", subTitle = "Commands of the Bot.")
+        val reply = IMessage(title = "Help", subTitle = "Commands of the Bot.")
+        accessibleCommands.sortBy { commandInfo -> commandInfo.name }
         for (cmd in accessibleCommands) reply.addField(cmd.name, cmd.description, false)
 
         event!!.channel.sendMessage(reply.build()).queue()

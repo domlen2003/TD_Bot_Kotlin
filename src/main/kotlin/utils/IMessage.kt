@@ -2,7 +2,6 @@ package utils
 
 import constants.MESSAGES.MESSAGE_BUILDER_DEFAULT_COLOR
 import constants.MESSAGES.MESSAGE_BUILDER_DEFAULT_ICON
-import core.Bot
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.MessageEmbed
 import java.awt.Color
@@ -29,10 +28,10 @@ class IMessage(private val title: String, private val subTitle: String) {
     }
 
     fun addField(name: String?, value: String?, inline: Boolean): IMessage {
-        if(inline)
-            body = "${body}\n**${name}: **${value}\n"
+        body = if (inline)
+            "${body}\n**${name}: **${value}\n"
         else
-            body ="${body}\n**${name}: **\n${value}\n"
+            "${body}\n**${name}: **\n${value}\n"
         return this
     }
 

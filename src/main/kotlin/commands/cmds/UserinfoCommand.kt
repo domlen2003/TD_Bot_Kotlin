@@ -6,6 +6,7 @@ import commands.handling.ICommand
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import utils.IMessage
 import utils.NationMember
+import commands.handling.CommandHandler.CommandContainer
 
 class UserinfoCommand : ICommand {
     override val info = CommandInfo(
@@ -17,14 +18,14 @@ class UserinfoCommand : ICommand {
         description = "Shows the commands you can use"
     )
 
-    override fun action(args: List<String?>, event: MessageReceivedEvent?) {
+    override fun action(cmd: CommandContainer) {
         val message = IMessage(title = "Userinfo", subTitle = "Stored Info in DB")
-        for (m in event!!.message.mentionedMembers) {
+        for (m in cmd.event!!.message.mentionedMembers) {
             val nationMember = NationMember(m)
             message.addField(name = m.effectiveName, value = "no DB connected", inline = false)
 
             // TODO: send info about user instead of "No Database" as soon as db is
         }
-        event.channel.sendMessage(message.build()).queue()
+        cmd.event.channel.sendMessage(message.build()).queue()
     }
 }

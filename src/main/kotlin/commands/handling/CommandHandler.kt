@@ -30,7 +30,7 @@ class CommandHandler(private val bot: Bot) {
     private fun handleCommand(cmd: CommandContainer) {
         for (command in commands) {
             if (command.info.invokes.stream().anyMatch { it.toString().equals(cmd.invoke, ignoreCase = true) }) {
-                if (command.secure(cmd.args, cmd.event)) command.action(cmd.args, cmd.event)
+                if (command.secure(cmd)) command.action(cmd)
             }
         }
     }
@@ -50,7 +50,7 @@ class CommandHandler(private val bot: Bot) {
         return CommandContainer(invoke, args, event)
     }
 
-    private data class CommandContainer(
+    data class CommandContainer(
         val invoke: String,
         val args: List<String?>,
         val event: MessageReceivedEvent?

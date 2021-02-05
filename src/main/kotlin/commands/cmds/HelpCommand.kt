@@ -3,7 +3,7 @@ package commands.cmds
 import commands.handling.CommandInfo
 import commands.handling.ICommand
 import core.Bot
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent
+import commands.handling.CommandHandler.CommandContainer
 import security.DiscordRank
 import utils.IMessage
 import java.util.*
@@ -17,15 +17,15 @@ class HelpCommand(private val bot: Bot) : ICommand {
     )
 
 
-    override fun action(args: List<String?>, event: MessageReceivedEvent?) {
+    override fun action(cmd:CommandContainer) {
         val accessibleCommands: LinkedList<CommandInfo> = bot.commandHandler.listCommandinfos()
         accessibleCommands.removeIf { commandInfo1: CommandInfo ->
-            !DiscordRank.findRank(event!!.member!!.roles[0].idLong)!!.isAtLeast(commandInfo1.accessRank)
+            !DiscordRank.findRank(cmd.event!!.member!!.roles[0].idLong)!!.isAtLeast(commandInfo1.accessRank)
         }
         val reply = IMessage(title = "Help", subTitle = "Commands of the Bot.")
         accessibleCommands.sortBy { commandInfo -> commandInfo.name }
         for (cmd in accessibleCommands) reply.addField(cmd.name, cmd.description, false)
 
-        event!!.channel.sendMessage(reply.build()).queue()
+        cmd.event!!.channel.sendMessage(reply.build()).queue()
     }
 }

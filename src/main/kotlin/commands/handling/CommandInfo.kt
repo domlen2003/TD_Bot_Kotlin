@@ -7,7 +7,8 @@ data class CommandInfo(
     val invokes: List<String>,
     val accessRank: DiscordRank = DiscordRank.THE_NATION,
     val description: String = "",
-    val args: List<Argument>
+    val args: List<Argument>,
+    val argsNecessary: Boolean = true
 )
 
 data class Argument(

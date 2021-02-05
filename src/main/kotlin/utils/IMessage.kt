@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed
 import java.awt.Color
 import java.util.*
 
-class IMessage(private val title: String, private val subTitle: String) {
+class IMessage(private val author: String, private val subTitle: String) {
 
     private val fields: MutableList<MessageEmbed.Field> = ArrayList()
     private var body: String = "\u200C"
@@ -67,7 +67,7 @@ class IMessage(private val title: String, private val subTitle: String) {
         builder.setTitle(subTitle, titleUrl)
             .setColor(color)
             .setDescription(body)
-            .setAuthor(title, authorUrl, authorIconUrl)
+            .setAuthor(author, authorUrl, authorIconUrl)
             .setThumbnail(iconUrl)
         for (field in fields) {
             builder.addField(field)

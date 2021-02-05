@@ -1,13 +1,11 @@
 package commands.cmds
 
+import commands.handling.CommandHandler.CommandContainer
 import commands.handling.CommandInfo
 import commands.handling.ICommand
-import core.Bot
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import utils.IMessage
-import commands.handling.CommandHandler.CommandContainer
 
-class TestCommand(private val bot: Bot) : ICommand {
+class TestCommand : ICommand {
     override val info = CommandInfo(
         name = "Test",
         invokes = listOf("test", "tes"),
@@ -16,7 +14,7 @@ class TestCommand(private val bot: Bot) : ICommand {
     )
 
     override fun action(cmd: CommandContainer) {
-        cmd.event!!.channel.sendMessage(IMessage(title = "Test", subTitle = "Reply to test command").build()).queue()
+        cmd.channel.sendMessage(IMessage(author = "Test", subTitle = "Reply to test command").build()).queue()
     }
 
 }

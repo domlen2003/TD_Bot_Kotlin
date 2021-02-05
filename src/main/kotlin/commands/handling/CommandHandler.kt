@@ -41,22 +41,18 @@ class CommandHandler(private val bot: Bot) {
         return list
     }
 
-    private data class CommandContainer(
-        val raw: String,
-        val beheaded: String,
-        val splitBeheaded: List<String>,
-        val invoke: String,
-        val args: List<String?>,
-        val event: MessageReceivedEvent
-    )
-
     private fun parse(raw: String, event: MessageReceivedEvent): CommandContainer {
         val beheaded = raw.replaceFirst(PREFIX.toRegex(), "")
         val splitBeheaded = LinkedList(beheaded.split(" ").toList().dropWhile { it == " " || it == "" })
         val invoke = splitBeheaded[0]
         val args = LinkedList(splitBeheaded.toList().subList(1, splitBeheaded.size))
 
-        return CommandContainer(raw, beheaded, splitBeheaded.toList(), invoke, args, event)
+        return CommandContainer(invoke, args, event)
     }
 
+    private data class CommandContainer(
+        val invoke: String,
+        val args: List<String?>,
+        val event: MessageReceivedEvent?
+    )
 }

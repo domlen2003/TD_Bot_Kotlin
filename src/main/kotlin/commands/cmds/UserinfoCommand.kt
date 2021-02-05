@@ -3,7 +3,6 @@ package commands.cmds
 import commands.handling.Argument
 import commands.handling.CommandInfo
 import commands.handling.ICommand
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import utils.IMessage
 import utils.NationMember
 import commands.handling.CommandHandler.CommandContainer
@@ -20,7 +19,11 @@ class UserinfoCommand : ICommand {
 
     override fun action(cmd: CommandContainer) {
         val message = IMessage(title = "Userinfo", subTitle = "Stored Info in DB")
-        for (m in cmd.event!!.message.mentionedMembers) {
+        if(cmd.event!!.message.mentionedMembers.size <= 0) {
+            argsProblemBreak(cmd)
+            return
+        }
+        for (m in cmd.event.message.mentionedMembers) {
             val nationMember = NationMember(m)
             message.addField(name = m.effectiveName, value = "no DB connected", inline = false)
 

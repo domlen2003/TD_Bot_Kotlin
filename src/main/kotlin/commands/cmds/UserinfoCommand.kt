@@ -4,6 +4,8 @@ import commands.handling.Argument
 import commands.handling.CommandHandler.CommandContainer
 import commands.handling.CommandInfo
 import commands.handling.ICommand
+import commands.handling.LimitationReason
+import security.DiscordRank
 import utils.IMessage
 import utils.NationMember
 
@@ -14,17 +16,18 @@ class UserinfoCommand : ICommand {
         args = listOf(
             Argument(type = "MemberMentions", example = "@exampleMember"),
         ),
-        description = "Shows the commands you can use"
+        description = "Shows the commands you can use",
+        accessRank = DiscordRank.TEAM
     )
 
     override fun action(cmd: CommandContainer) {
         val message = IMessage(author = "Userinfo", subTitle = "Stored Info in DB")
-        if (cmd.message.mentionedMembers.size <= 0) {
-            argsProblemBreak(cmd)
+        if (cmd.mentioned.size <= 0) {
+            limitedAccess(cmd = cmd, reason = LimitationReason.ARGUMENTS_WRONG)
             return
         }
-        for (m in cmd.message.mentionedMembers) {
-            val nationMember = NationMember(m)
+        for (m in cmd.mentioned) {
+            //val nationMember = NationMember(m)
             message.addField(name = m.effectiveName, value = "no DB connected", inline = false)
 
             // TODO: send info about user instead of "No Database" as soon as db is

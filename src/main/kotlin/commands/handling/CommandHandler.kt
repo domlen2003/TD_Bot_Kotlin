@@ -7,12 +7,11 @@ import commands.cmds.UserinfoCommand
 import constants.BOT.PREFIX
 import core.Bot
 import net.dv8tion.jda.api.entities.Member
-import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.TextChannel
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import java.util.*
 
-class CommandHandler(private val bot: Bot) {
+class CommandHandler(bot: Bot) {
 
     private val commands: LinkedList<ICommand> = LinkedList<ICommand>()
 
@@ -52,7 +51,7 @@ class CommandHandler(private val bot: Bot) {
         val invoke = splitBeheaded[0]
         val args = LinkedList(splitBeheaded.toList().subList(1, splitBeheaded.size))
 
-        return CommandContainer(invoke, args, event.textChannel, event.member, event.message)
+        return CommandContainer(invoke, args, event.textChannel, event.member, event.message.mentionedMembers)
     }
 
     data class CommandContainer(
@@ -60,6 +59,6 @@ class CommandHandler(private val bot: Bot) {
         val args: List<String?>,
         val channel: TextChannel,
         val member: Member?,
-        val message: Message
+        val mentioned: MutableList<Member>
     )
 }

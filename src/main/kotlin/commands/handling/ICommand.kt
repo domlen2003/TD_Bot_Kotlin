@@ -33,7 +33,7 @@ interface ICommand {
         when (reason) {
             LimitationReason.ARGUMENTS_MISSING -> {
                 msg =
-                    IMessage(author = "Warning", subTitle = "Missing Arguments (Non Fatal)").setColor(
+                    IMessage(author = "", subTitle = "Missing Arguments (Non Fatal)").setColor(
                         MESSAGE_BUILDER_WARNING_COLOR
                     )
                         .addLine("__**Expected: **__")
@@ -52,7 +52,7 @@ interface ICommand {
                 msg.setIcon(MESSAGE_BUILDER_WARNING_ICON)
             }
             LimitationReason.ARGUMENTS_WRONG -> {
-                msg = IMessage(author = "Warning", subTitle = "Wrong Arguments").setColor(MESSAGE_BUILDER_WARNING_COLOR)
+                msg = IMessage(author = "", subTitle = "Wrong Arguments").setColor(MESSAGE_BUILDER_WARNING_COLOR)
                     .addLine("__**Expected Type: **__")
                 for (i in info.args.indices) msg.addField(
                     name = "Field ${i + 1}",
@@ -64,7 +64,7 @@ interface ICommand {
                 msg.setIcon(MESSAGE_BUILDER_WARNING_ICON)
             }
             LimitationReason.RANK_WRONG -> {
-                msg = IMessage(author = "Error", subTitle = "Restricted Access").setColor(MESSAGE_BUILDER_ERROR_COLOR)
+                msg = IMessage(author = "", subTitle = "Restricted Access").setColor(MESSAGE_BUILDER_ERROR_COLOR)
                     .addLine("__**Expected Rank: **__")
                     .addField(name = "Rank", value = "`${info.accessRank.name}`", inline = true)
                     .blankLine()
@@ -72,7 +72,7 @@ interface ICommand {
                     .setIcon(MESSAGE_BUILDER_ERROR_ICON)
             }
             LimitationReason.ARGUMENTS_MISSING_FATAL -> {
-                msg = IMessage(author = "Error", subTitle = "Missing Arguments").setColor(MESSAGE_BUILDER_ERROR_COLOR)
+                msg = IMessage(author = "", subTitle = "Missing Arguments").setColor(MESSAGE_BUILDER_ERROR_COLOR)
                     .addLine("__**Expected: **__")
                 for (arg in info.args) msg.addField(
                     name = arg.type, value = "`${arg.example}` ${
@@ -90,7 +90,7 @@ interface ICommand {
             }
         }
 
-        cmd.channel.sendMessage(msg.build()).complete().delete().queueAfter(8, TimeUnit.SECONDS)
+        cmd.channel.sendMessage(msg.build()).complete().delete().queueAfter(10, TimeUnit.SECONDS)
     }
 }
 

@@ -28,7 +28,6 @@ class ClearCommand(private val bot: Bot) : ICommand {
             noArgs = true
             1
         }
-        println("$noArgs $i")
         for (message in cmd.channel.iterableHistory.cache(false)) {
             if (message.isPinned || ((message.author == bot.jda.selfUser) && noArgs)) continue
             message.delete().queue()

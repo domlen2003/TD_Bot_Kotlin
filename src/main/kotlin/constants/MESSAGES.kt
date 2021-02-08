@@ -10,7 +10,7 @@ object MESSAGES {
     const val MESSAGE_BUILDER_ERROR_ICON =
         "https://assets.dryicons.com/uploads/icon/preview/1277/large_1x_process_delete.png"
 
-    val MESSAGE_BUILDER_WARNING_COLOR = Color.YELLOW!!
+    val MESSAGE_BUILDER_WARNING_COLOR = Color.ORANGE!!
     const val MESSAGE_BUILDER_WARNING_ICON =
         "https://assets.dryicons.com/uploads/icon/preview/1346/large_1x_warning.png"
 

@@ -24,7 +24,7 @@ class HelpCommand(private val bot: Bot) : ICommand {
         }
         val reply = IMessage(author = "Help", subTitle = "Commands of the Bot.")
         accessibleCommands.sortBy { commandInfo -> commandInfo.name }
-        for (accessibleCmd in accessibleCommands) reply.addField(accessibleCmd.name, accessibleCmd.description, false)
+        for (accessibleCmd in accessibleCommands) reply.addField(accessibleCmd.name, accessibleCmd.description, false).blankLine()
 
         cmd.channel.sendMessage(reply.build()).queue()
     }

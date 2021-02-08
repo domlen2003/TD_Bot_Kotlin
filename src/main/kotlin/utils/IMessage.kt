@@ -6,8 +6,6 @@ import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.MessageEmbed
 import java.awt.Color
 import java.time.Instant
-import java.time.temporal.TemporalAccessor
-import java.util.*
 
 class IMessage(private val author: String, private val subTitle: String) {
 
@@ -17,7 +15,7 @@ class IMessage(private val author: String, private val subTitle: String) {
     private var titleUrl: String? = null
 
     fun addLine(text: String): IMessage {
-        body = "$body\n$text\n"
+        body = "$body\n$text"
         return this
     }
 
@@ -28,9 +26,9 @@ class IMessage(private val author: String, private val subTitle: String) {
 
     fun addField(name: String?, value: String?, inline: Boolean): IMessage {
         body = if (inline)
-            "${body}\n**${name}: **${value}\n"
+            "${body}\n**${name}: **${value}"
         else
-            "${body}\n**${name}: **\n${value}\n"
+            "${body}\n**${name}: **\n${value}"
         return this
     }
 

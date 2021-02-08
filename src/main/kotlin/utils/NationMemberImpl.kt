@@ -6,7 +6,7 @@ import security.DiscordRank
 
 /**@param member Discord Member to create a NationMemberImpl from*/
 class NationMemberImpl(private val member: Member): NationMember{
-    val game: String?
+    override val game: String?
         get() {
             if (member.activities.size >= 1) {
                 for (i in member.activities.indices) {
@@ -20,15 +20,6 @@ class NationMemberImpl(private val member: Member): NationMember{
         }
 
     /** @return user's Rank*/
-    val rank: DiscordRank
-        get() = DiscordRank.findRank(member.roles[0].idLong)!!
-
-    /** @return user's nickname*/
-    val nickname: String
-        get() = member.effectiveName
-
-    /** @return user as mention*/
-    fun asTag(): String {
-        return member.asMention
-    }
+    override val rank: DiscordRank?
+        get() = DiscordRank.findRank(member.roles[0].idLong)
 }

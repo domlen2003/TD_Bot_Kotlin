@@ -7,6 +7,7 @@ import commands.handling.ICommand
 import commands.handling.LimitationReason
 import security.DiscordRank
 import utils.IMessage
+import utils.NationMemberImpl
 
 class UserinfoCommand : ICommand {
     override val info = CommandInfo(
@@ -26,10 +27,13 @@ class UserinfoCommand : ICommand {
             return
         }
         for (m in cmd.mentioned) {
-            //val nationMember = NationMemberImpl(m)
-            message.addField(name = m.effectiveName, value = "no DB connected", inline = false)
-
-            // TODO: send info about user instead of "No Database" as soon as db is
+            val nationMember = NationMemberImpl(m)
+            message.addLine(text = "__${m.effectiveName}__")
+                .addField(name = "Database", value = "no DB connected", inline = false)
+                .addField(name = "Rank", value = "${nationMember.rank}", inline = false)
+                .addField(name = "Game", value = "${nationMember.game}", inline = false)
+                .blankLine()
+        // TODO: send info about user instead of "No Database" as soon as db is
         }
         cmd.channel.sendMessage(message.build()).queue()
     }

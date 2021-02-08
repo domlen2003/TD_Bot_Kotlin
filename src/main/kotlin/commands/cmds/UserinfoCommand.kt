@@ -26,7 +26,7 @@ class UserinfoCommand : ICommand {
             return
         }
         for (m in cmd.mentioned) {
-            //val nationMember = NationMember(m)
+            //val nationMember = NationMemberImpl(m)
             message.addField(name = m.effectiveName, value = "no DB connected", inline = false)
 
             // TODO: send info about user instead of "No Database" as soon as db is

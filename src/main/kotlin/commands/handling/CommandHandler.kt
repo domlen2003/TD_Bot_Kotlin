@@ -19,7 +19,7 @@ class CommandHandler(bot: Bot) {
         addCommand(TestCommand())
         addCommand(HelpCommand(bot))
         addCommand(UserinfoCommand())
-        addCommand(ClearCommand())
+        addCommand(ClearCommand(bot))
     }
 
     fun handle(event: MessageReceivedEvent) {
@@ -39,7 +39,7 @@ class CommandHandler(bot: Bot) {
         }
     }
 
-    fun listCommandinfos(): LinkedList<CommandInfo> {
+    fun listCommandInfos(): LinkedList<CommandInfo> {
         val list = LinkedList<CommandInfo>()
         commands.forEach { command -> list.add(command.info) }
         return list

@@ -7,14 +7,13 @@ import commands.handling.ICommand
 import commands.handling.LimitationReason
 import security.DiscordRank
 import utils.IMessage
-import utils.NationMember
 
 class UserinfoCommand : ICommand {
     override val info = CommandInfo(
         name = "Userinfo",
         invokes = listOf("Info", "Userinfo"),
         args = listOf(
-            Argument(type = "MemberMentions", example = "@exampleMember"),
+            Argument(type = "MemberMentions", example = "@exampleMember", necessary = true),
         ),
         description = "Shows the commands you can use",
         accessRank = DiscordRank.TEAM

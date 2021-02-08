@@ -12,5 +12,6 @@ data class CommandInfo(
 
 data class Argument(
     val type: String,
-    val example: String
+    val example: String,
+    val necessary: Boolean
 )

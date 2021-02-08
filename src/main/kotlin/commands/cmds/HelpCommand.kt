@@ -18,7 +18,7 @@ class HelpCommand(private val bot: Bot) : ICommand {
 
 
     override fun action(cmd: CommandContainer) {
-        val accessibleCommands: LinkedList<CommandInfo> = bot.commandHandler.listCommandinfos()
+        val accessibleCommands: LinkedList<CommandInfo> = bot.commandHandler.listCommandInfos()
         accessibleCommands.removeIf { commandInfo1: CommandInfo ->
             !DiscordRank.findRank(cmd.member!!.roles[0].idLong)!!.isAtLeast(commandInfo1.accessRank)
         }

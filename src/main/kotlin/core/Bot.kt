@@ -13,4 +13,9 @@ interface Bot {
      * The [CommandHandler] instance
      */
     val commandHandler: CommandHandler
+
+    /**
+     * The [VoiceSystem] instance
+     */
+    val voiceSystem: VoiceSystem
 }

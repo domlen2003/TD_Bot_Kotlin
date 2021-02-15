@@ -2,65 +2,49 @@ package utils
 
 import constants.MESSAGES.MESSAGE_BUILDER_DEFAULT_COLOR
 import constants.MESSAGES.MESSAGE_BUILDER_DEFAULT_ICON
-import core.Bot
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.MessageEmbed
 import java.awt.Color
-import java.util.*
+import java.time.Instant
 
-class IMessage(private val bot: Bot, private val title: String, private val subTitle: String) {
+class IMessage(private val author: String, private val subTitle: String) {
 
-    private val fields: MutableList<MessageEmbed.Field> = ArrayList()
-    private var body: String? = null
+    private var body: String = "\u200C"
     private var color = MESSAGE_BUILDER_DEFAULT_COLOR
     private var iconUrl: String? = MESSAGE_BUILDER_DEFAULT_ICON
     private var titleUrl: String? = null
-    private var authorUrl: String? = null
-    private var authorIconUrl: String? = bot.jda.guilds[0].iconUrl
 
-
-    fun setTitleUrl(pUrl: String?): IMessage {
-        titleUrl = pUrl
-        return this
-    }
-
-    fun addLine(pText: String): IMessage {
-        body =
-            if (body != null) """$body$pText""".trimIndent()
-            else pText
-        return this
-    }
-
-    fun addField(pName: String?, pValue: String?, pInline: Boolean): IMessage {
-        val f = MessageEmbed.Field(pName, pValue, pInline)
-        fields.add(f)
+    fun addLine(text: String): IMessage {
+        body = "$body\n$text"
         return this
     }
 
     fun blankLine(): IMessage {
-        body =
-            if (body != null) """$body""".trimIndent()
-            else "\n"
+        body = "$body\n"
         return this
     }
 
-    fun setColor(pColor: Color): IMessage {
-        color = pColor
+    fun addField(name: String?, value: String?, inline: Boolean): IMessage {
+        body = if (inline)
+            "${body}\n**${name}: **${value}"
+        else
+            "${body}\n**${name}: **\n${value}"
         return this
     }
 
-    fun setIcon(pIconUrl: String?): IMessage {
-        iconUrl = pIconUrl
+    fun setIcon(url: String?): IMessage {
+        this.iconUrl = url
         return this
     }
 
-    fun setAuthorUrl(pAuthorUrl: String?): IMessage {
-        authorUrl = pAuthorUrl
+    fun setTitleUrl(url: String?): IMessage {
+        titleUrl = url
         return this
     }
 
-    fun setAuthorIconUrl(pAuthorIconUrl: String?): IMessage {
-        authorIconUrl = pAuthorIconUrl
+
+    fun setColor(color: Color): IMessage {
+        this.color = color
         return this
     }
 
@@ -69,11 +53,10 @@ class IMessage(private val bot: Bot, private val title: String, private val subT
         builder.setTitle(subTitle, titleUrl)
             .setColor(color)
             .setDescription(body)
-            .setAuthor(title, authorUrl, authorIconUrl)
+            .setAuthor(author, null, null)
             .setThumbnail(iconUrl)
-        for (field in fields) {
-            builder.addField(field)
-        }
+            .setFooter("\u00A9 TDBot by TDDominik")
+            .setTimestamp(Instant.now())
         return builder.build()
     }
 }

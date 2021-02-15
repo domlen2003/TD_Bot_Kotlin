@@ -1,20 +1,25 @@
 package commands.handling
 
+import commands.cmds.ClearCommand
 import commands.cmds.HelpCommand
 import commands.cmds.TestCommand
+import commands.cmds.UserinfoCommand
 import constants.BOT.PREFIX
 import core.Bot
+import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.entities.TextChannel
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import java.util.*
-import java.util.function.Predicate
 
-class CommandHandler (bot: Bot){
+class CommandHandler(bot: Bot) {
 
     private val commands: LinkedList<ICommand> = LinkedList<ICommand>()
 
     init {
-        addCommand(TestCommand(bot))
+        addCommand(TestCommand())
         addCommand(HelpCommand(bot))
+        addCommand(UserinfoCommand())
+        addCommand(ClearCommand(bot))
     }
 
     fun handle(event: MessageReceivedEvent) {
@@ -28,36 +33,32 @@ class CommandHandler (bot: Bot){
 
     private fun handleCommand(cmd: CommandContainer) {
         for (command in commands) {
-            if(command.info.invokes.stream().anyMatch{it.toString().equals(cmd.invoke, ignoreCase = true)}) {
-                if (command.secure(cmd.args, cmd.event)) command.action(cmd.args, cmd.event)
+            if (command.info.invokes.stream().anyMatch { it.toString().equals(cmd.invoke, ignoreCase = true) }) {
+                if (command.secure(cmd)) command.action(cmd)
             }
         }
     }
 
-    fun listCommandinfos(): LinkedList<CommandInfo> {
+    fun listCommandInfos(): LinkedList<CommandInfo> {
         val list = LinkedList<CommandInfo>()
-        commands.forEach { command ->list.add(command.info)  }
+        commands.forEach { command -> list.add(command.info) }
         return list
     }
 
-    private data class CommandContainer(
-            val raw: String,
-            val beheaded: String,
-            val splitBeheaded: Array<String>,
-            val invoke: String,
-            val args: Array<String?>,
-            val event: MessageReceivedEvent
-    )
-
     private fun parse(raw: String, event: MessageReceivedEvent): CommandContainer {
         val beheaded = raw.replaceFirst(PREFIX.toRegex(), "")
-        val splitBeheaded = beheaded.split(" ").toTypedArray()
+        val splitBeheaded = LinkedList(beheaded.split(" ").toList().dropWhile { it == " " || it == "" })
         val invoke = splitBeheaded[0]
-        val split = ArrayList<String>()
-        for (s in splitBeheaded) split.add(s)
-        val args = arrayOfNulls<String>(split.size - 1)
-        System.arraycopy(split.toArray(), 1, args, 0, args.size)
+        val args = LinkedList(splitBeheaded.toList().subList(1, splitBeheaded.size))
 
-        return CommandContainer(raw, beheaded, splitBeheaded, invoke, args, event)
+        return CommandContainer(invoke, args, event.textChannel, event.member, event.message.mentionedMembers)
     }
+
+    data class CommandContainer(
+        val invoke: String,
+        val args: List<String?>,
+        val channel: TextChannel,
+        val member: Member?,
+        val mentioned: MutableList<Member>
+    )
 }

@@ -86,6 +86,8 @@ class GuildVoiceListener(private val bot: Bot) : ListenerAdapter() {
                             member = event.member,
                             joined = event.joined
                         )
+                } else {
+                    event.member.guild.kickVoiceMember(event.member).queue()
                 }
             } else {
                 event.member.guild.kickVoiceMember(event.member).queue()

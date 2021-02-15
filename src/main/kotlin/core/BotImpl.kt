@@ -16,12 +16,14 @@ internal class BotImpl(token: String) : Bot {
         token,
         GatewayIntent.getIntents(GATEWAY_INTENTS)
     )
-        .addEventListeners(CommandListener(this))
-        .addEventListeners(GuildVoiceListener(this))
+        .addEventListeners(CommandListener(bot = this))
+        .addEventListeners(GuildVoiceListener(bot = this))
         .setActivity(ACTIVITY)
         .setStatus(STATUS)
         .build()
 
-    override val commandHandler = CommandHandler(this)
+    override val commandHandler = CommandHandler(bot = this)
+
+    override val voiceSystem = VoiceSystem()
 
 }

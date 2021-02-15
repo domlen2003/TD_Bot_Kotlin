@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.entities.VoiceChannel
 import java.util.*
 
 class VoiceSystem {
-    private var voiceChannels = ArrayList<VoiceChannel>()
+    var voiceChannels = ArrayList<VoiceChannel>()
 
     fun createVoiceChannel(game: String, guild: Guild, member: Member, joined: VoiceChannel) {
         val temp = guild

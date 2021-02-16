@@ -1,14 +1,14 @@
 package commands.cmds
 
 import commands.handling.Argument
+import commands.handling.CommandBehaviour
 import commands.handling.CommandHandler.CommandContainer
 import commands.handling.CommandInfo
-import commands.handling.ICommand
 import core.Bot
-import utils.IMessage
+import utils.Message
 import java.util.concurrent.TimeUnit
 
-class ClearCommand(private val bot: Bot) : ICommand {
+class ClearCommand(private val bot: Bot) : CommandBehaviour() {
     override val info = CommandInfo(
         name = "Clear",
         invokes = listOf("clear", "clearMessage", "clearMessages"),
@@ -35,7 +35,7 @@ class ClearCommand(private val bot: Bot) : ICommand {
         }
 
         cmd.channel.sendMessage(
-            IMessage(author = "Clear", subTitle = " ")
+            Message(author = "Clear", subTitle = " ")
                 .addLine(
                     text = "Deleted ``${
                         if (!noArgs) {

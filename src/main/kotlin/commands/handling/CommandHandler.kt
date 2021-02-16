@@ -1,9 +1,6 @@
 package commands.handling
 
-import commands.cmds.ClearCommand
-import commands.cmds.HelpCommand
-import commands.cmds.TestCommand
-import commands.cmds.UserinfoCommand
+import commands.cmds.*
 import constants.BOT.PREFIX
 import core.Bot
 import net.dv8tion.jda.api.entities.Member
@@ -20,6 +17,7 @@ class CommandHandler(bot: Bot) {
         addCommand(HelpCommand(bot))
         addCommand(UserinfoCommand())
         addCommand(ClearCommand(bot))
+        addCommand(FlipCommand())
     }
 
     fun handle(event: MessageReceivedEvent) {

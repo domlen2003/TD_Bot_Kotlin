@@ -14,4 +14,9 @@ object MESSAGES {
     const val MESSAGE_BUILDER_WARNING_ICON =
         "https://assets.dryicons.com/uploads/icon/preview/1346/large_1x_warning.png"
 
+    const val FLIP_COIN_HEAD =
+        "https://image.shutterstock.com/image-vector/man-head-profile-golden-coin-260nw-781930996.jpg"
+    const val FLIP_COIN_TAIL =
+        "https://image.shutterstock.com/image-vector/gold-coin-profile-queen-elizabeth-260nw-1254673186.jpg"
+
 }

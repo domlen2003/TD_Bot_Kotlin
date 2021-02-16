@@ -1,15 +1,12 @@
 package commands.cmds
 
-import commands.handling.Argument
+import commands.handling.*
 import commands.handling.CommandHandler.CommandContainer
-import commands.handling.CommandInfo
-import commands.handling.ICommand
-import commands.handling.LimitationReason
 import security.DiscordRank
-import utils.IMessage
+import utils.Message
 import utils.NationMemberImpl
 
-class UserinfoCommand : ICommand {
+class UserinfoCommand : CommandBehaviour() {
     override val info = CommandInfo(
         name = "Userinfo",
         invokes = listOf("Info", "Userinfo"),
@@ -21,7 +18,7 @@ class UserinfoCommand : ICommand {
     )
 
     override fun action(cmd: CommandContainer) {
-        val message = IMessage(author = "Userinfo", subTitle = "Stored Info in DB")
+        val message = Message(author = "Userinfo", subTitle = "Stored Info in DB")
         if (cmd.mentioned.size <= 0) {
             limitedAccess(cmd = cmd, reason = LimitationReason.ARGUMENTS_WRONG)
             return

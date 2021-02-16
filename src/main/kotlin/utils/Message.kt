@@ -7,24 +7,25 @@ import net.dv8tion.jda.api.entities.MessageEmbed
 import java.awt.Color
 import java.time.Instant
 
-class IMessage(private val author: String, private val subTitle: String) {
+class Message(private val author: String, private val subTitle: String) {
 
     private var body: String = "\u200C"
     private var color = MESSAGE_BUILDER_DEFAULT_COLOR
     private var iconUrl: String? = MESSAGE_BUILDER_DEFAULT_ICON
+    private var imageUrl: String? = null
     private var titleUrl: String? = null
 
-    fun addLine(text: String): IMessage {
+    fun addLine(text: String): Message {
         body = "$body\n$text"
         return this
     }
 
-    fun blankLine(): IMessage {
+    fun blankLine(): Message {
         body = "$body\n"
         return this
     }
 
-    fun addField(name: String?, value: String?, inline: Boolean): IMessage {
+    fun addField(name: String?, value: String?, inline: Boolean): Message {
         body = if (inline)
             "${body}\n**${name}: **${value}"
         else
@@ -32,18 +33,23 @@ class IMessage(private val author: String, private val subTitle: String) {
         return this
     }
 
-    fun setIcon(url: String?): IMessage {
+    fun setIcon(url: String?): Message {
         this.iconUrl = url
         return this
     }
 
-    fun setTitleUrl(url: String?): IMessage {
+    fun setImage(url: String?): Message {
+        this.imageUrl = url
+        return this
+    }
+
+    fun setTitleUrl(url: String?): Message {
         titleUrl = url
         return this
     }
 
 
-    fun setColor(color: Color): IMessage {
+    fun setColor(color: Color): Message {
         this.color = color
         return this
     }
@@ -55,7 +61,8 @@ class IMessage(private val author: String, private val subTitle: String) {
             .setDescription(body)
             .setAuthor(author, null, null)
             .setThumbnail(iconUrl)
-            .setFooter("\u00A9 TDBot by TDDominik")
+            .setImage(imageUrl)
+            .setFooter("TDBot \u00A9 by TDDominik")
             .setTimestamp(Instant.now())
         return builder.build()
     }

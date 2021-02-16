@@ -2,7 +2,7 @@ package commands.handling
 
 import constants.MESSAGES
 import security.DiscordRank
-import utils.IMessage
+import utils.Message
 import java.util.concurrent.TimeUnit
 
 abstract class CommandBehaviour:ICommand {
@@ -21,11 +21,11 @@ abstract class CommandBehaviour:ICommand {
     }
 
     fun limitedAccess(cmd: CommandHandler.CommandContainer, reason: LimitationReason) {
-        val msg: IMessage
+        val msg: Message
         when (reason) {
             LimitationReason.ARGUMENTS_MISSING -> {
                 msg =
-                    IMessage(author = "", subTitle = "Missing Arguments (Non Fatal)").setColor(
+                    Message(author = "", subTitle = "Missing Arguments (Non Fatal)").setColor(
                         MESSAGES.MESSAGE_BUILDER_WARNING_COLOR
                     )
                         .addLine("__**Expected: **__")
@@ -44,7 +44,7 @@ abstract class CommandBehaviour:ICommand {
                 msg.setIcon(MESSAGES.MESSAGE_BUILDER_WARNING_ICON)
             }
             LimitationReason.ARGUMENTS_WRONG -> {
-                msg = IMessage(author = "", subTitle = "Wrong Arguments").setColor(MESSAGES.MESSAGE_BUILDER_WARNING_COLOR)
+                msg = Message(author = "", subTitle = "Wrong Arguments").setColor(MESSAGES.MESSAGE_BUILDER_WARNING_COLOR)
                     .addLine("__**Expected Type: **__")
                 for (i in info.args.indices) msg.addField(
                     name = "Field ${i + 1}",
@@ -56,7 +56,7 @@ abstract class CommandBehaviour:ICommand {
                 msg.setIcon(MESSAGES.MESSAGE_BUILDER_WARNING_ICON)
             }
             LimitationReason.RANK_WRONG -> {
-                msg = IMessage(author = "", subTitle = "Restricted Access").setColor(MESSAGES.MESSAGE_BUILDER_ERROR_COLOR)
+                msg = Message(author = "", subTitle = "Restricted Access").setColor(MESSAGES.MESSAGE_BUILDER_ERROR_COLOR)
                     .addLine("__**Expected Rank: **__")
                     .addField(name = "Rank", value = "`${info.accessRank.name}`", inline = true)
                     .blankLine()
@@ -64,7 +64,7 @@ abstract class CommandBehaviour:ICommand {
                     .setIcon(MESSAGES.MESSAGE_BUILDER_ERROR_ICON)
             }
             LimitationReason.ARGUMENTS_MISSING_FATAL -> {
-                msg = IMessage(author = "", subTitle = "Missing Arguments").setColor(MESSAGES.MESSAGE_BUILDER_ERROR_COLOR)
+                msg = Message(author = "", subTitle = "Missing Arguments").setColor(MESSAGES.MESSAGE_BUILDER_ERROR_COLOR)
                     .addLine("__**Expected: **__")
                 for (arg in info.args) msg.addField(
                     name = arg.type, value = "`${arg.example}` ${

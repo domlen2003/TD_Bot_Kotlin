@@ -3,8 +3,7 @@ package commands.cmds
 import commands.handling.CommandBehaviour
 import commands.handling.CommandHandler.CommandContainer
 import commands.handling.CommandInfo
-import commands.handling.ICommand
-import utils.IMessage
+import utils.Message
 
 class TestCommand : CommandBehaviour() {
     override val info = CommandInfo(
@@ -14,7 +13,7 @@ class TestCommand : CommandBehaviour() {
     )
 
     override fun action(cmd: CommandContainer) {
-        cmd.channel.sendMessage(IMessage(author = "Test", subTitle = "Reply to test command").build()).queue()
+        cmd.channel.sendMessage(Message(author = "Test", subTitle = "Reply to test command").build()).queue()
     }
 
 }

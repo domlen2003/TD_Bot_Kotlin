@@ -4,9 +4,8 @@ import commands.handling.Argument
 import commands.handling.CommandBehaviour
 import commands.handling.CommandHandler.CommandContainer
 import commands.handling.CommandInfo
-import commands.handling.ICommand
 import core.Bot
-import utils.IMessage
+import utils.Message
 import java.util.concurrent.TimeUnit
 
 class ClearCommand(private val bot: Bot) : CommandBehaviour() {
@@ -36,7 +35,7 @@ class ClearCommand(private val bot: Bot) : CommandBehaviour() {
         }
 
         cmd.channel.sendMessage(
-            IMessage(author = "Clear", subTitle = " ")
+            Message(author = "Clear", subTitle = " ")
                 .addLine(
                     text = "Deleted ``${
                         if (!noArgs) {

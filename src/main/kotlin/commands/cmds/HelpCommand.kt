@@ -1,5 +1,6 @@
 package commands.cmds
 
+import commands.handling.CommandBehaviour
 import commands.handling.CommandHandler.CommandContainer
 import commands.handling.CommandInfo
 import commands.handling.ICommand
@@ -8,11 +9,10 @@ import security.DiscordRank
 import utils.IMessage
 import java.util.*
 
-class HelpCommand(private val bot: Bot) : ICommand {
+class HelpCommand(private val bot: Bot) : CommandBehaviour() {
     override val info = CommandInfo(
         name = "Help",
         invokes = listOf("Help", "Commands"),
-        args = listOf(),
         description = "Shows the commands you can use"
     )
 

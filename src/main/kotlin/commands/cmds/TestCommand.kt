@@ -1,15 +1,15 @@
 package commands.cmds
 
+import commands.handling.CommandBehaviour
 import commands.handling.CommandHandler.CommandContainer
 import commands.handling.CommandInfo
 import commands.handling.ICommand
 import utils.IMessage
 
-class TestCommand : ICommand {
+class TestCommand : CommandBehaviour() {
     override val info = CommandInfo(
         name = "Test",
         invokes = listOf("test", "tes"),
-        args = listOf(),
         description = "a test command"
     )
 

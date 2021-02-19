@@ -1,5 +1,5 @@
 # TD_Bot_Kotlin
-## Kotlin Versaion of the [TD-Bot](https://github.com/Th3Ph4nt0m/TD-Bot)
+## Kotlin Version of the [TD-Bot](https://github.com/Th3Ph4nt0m/TD-Bot)
 The current Discord bot of the TD-Nation Discord Server. 
 Build on top of the [JDA](https://github.com/DV8FromTheWorld/JDA).
 Adapted to Kotlin for modernization.

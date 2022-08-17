@@ -1,3 +1,5 @@
+# Archived because it was moved to the [gitlab instance](https://vcs.notabot.cc/tdn/tdbot) of NotABot 
+
 # TD_Bot_Kotlin
 ## Kotlin Version of the [TD-Bot](https://github.com/Th3Ph4nt0m/TD-Bot)
 The current Discord bot of the TD-Nation Discord Server. 
